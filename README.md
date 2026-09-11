@@ -1,4 +1,4 @@
-# Nombre del Proyecto
+# Proyecto de gestor personal de financias
 
 Aplicación web para registrar y gestionar finanzas personales: ingresos, gastos y ahorros mensuales. Permite crear una cuenta para guardar la información de forma privada.
 
@@ -91,7 +91,8 @@ El servidor queda disponible en http://localhost:3000.
 - Registro de ingresos mensuales
 - Registro de gastos mensuales
 - Registro de ahorros
-- (completar con lo que tengan pensado: reportes, balances, categorías, etc.)
+- Categorías de gastos e ingresos
+- Reportes financieros periódicos
 
 ## Integrantes del proyecto
 
