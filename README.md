@@ -1,72 +1,107 @@
-# Gestion-de-gastos-Metodologia-de-sistemas-II
+# Nombre del Proyecto
 
-# (Plantilla de README)
+Aplicación web para registrar y gestionar finanzas personales: ingresos, gastos y ahorros mensuales. Permite crear una cuenta para guardar la información de forma privada.
+
+## Tecnologías usadas
+
+- **Node.js v20.x**
+- **Express.js**
+- **PostgreSQL / MySQL (definir cuál usan)**
+- **ORM si corresponde (Sequelize, Prisma, etc.)**
+- **Librería de autenticación (JWT, bcrypt, Passport, etc.)**
+
+## Requisitos previos
+
+- Node.js >= 20.x 
+- npm >= 10.x
+- PostgreSQL >= 15 o MySQL >= 8 corriendo localmente (o Docker si lo usan)
+- Git
+
+## Instalación
+
+1. Clonar el repositorio:
+
+git clone https://github.com/usuario/nombre-repo.git
+cd nombre-repo
 
 
-**.**
+2. Instalar las dependencias:
 
----
-
-## Sección 1
-
----
-
-## Inicio Rapido
-
-### Requisitos previos
-
-- 
-
-### Levantar el proyecto
-
-```
-```
-
-### Detener el proyecto
+npm install
 
 
-```
+3. Copiar el archivo de variables de entorno de ejemplo:
 
----
+cp .env.example .env
 
-## Estructura del Proyecto
 
-```
-proyecto/
+4. Completar el archivo .env con los valores correspondientes (ver sección de Configuración).
+
+5. Crear la base de datos y correr las migraciones, si usan alguna:
+
+npm run migrate
+
+
+## Configuración
+
+Variables de entorno necesarias (ver .env.example):
+
+| Variable      | Descripción                        | Ejemplo                    |
+|---------------|-------------------------------------|-----------------------------|
+| DB_HOST       | Host de la base de datos            | localhost                    |
+| DB_PORT       | Puerto de la base de datos          | 5432                         |
+| DB_NAME       | Nombre de la base de datos          | finanzapp_db                 |
+| DB_USER       | Usuario de la base de datos         | postgres                     |
+| DB_PASSWORD   | Contraseña de la base de datos      | ****                     |
+| JWT_SECRET    | Clave secreta para tokens de sesión | una_clave_larga_y_segura      |
+| PORT          | Puerto donde corre el servidor      | 3000                         |
+
+## Cómo correr el proyecto
+
+Modo desarrollo:
+
+npm run dev
+
+
+Modo producción:
+
+npm start
+
+
+El servidor queda disponible en http://localhost:3000.
+
+## Estructura del proyecto
+
+
+├── src/
+│   ├── controllers/      # Lógica de ingresos, gastos, ahorros, auth
+│   ├── models/            # Modelos de la base de datos
+│   ├── routes/            # Endpoints de la API
+│   ├── middlewares/        # Autenticación, validaciones
+│   └── index.js
+├── .env.example
 ├── .gitignore
-├── README.md 
-```
-
----
+├── package.json
+└── README.md
 
 
+## Funcionalidades principales
 
-## Tecnologias Utilizadas
+- Registro e inicio de sesión de usuarios
+- Registro de ingresos mensuales
+- Registro de gastos mensuales
+- Registro de ahorros
+- (completar con lo que tengan pensado: reportes, balances, categorías, etc.)
 
-### Backend
-- **[Express](https://expressjs.com/)** — Framework web para Node.js
-- **[Sequelize](https://sequelize.org/)** — ORM para bases de datos SQL
-- **[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)** — Generacion y verificacion de JWT
-- **[bcryptjs](https://github.com/dcodeIO/bcrypt.js)** — Hashing de passwords
-- **[helmet](https://helmetjs.github.io/)** — Headers de seguridad HTTP
-- **[cors](https://github.com/expressjs/cors)** — Configuracion de Cross-Origin Resource Sharing
-- **[morgan](https://github.com/expressjs/morgan)** — Logging de peticiones HTTP
+## Integrantes del proyecto
 
-### Frontend
-- **[React 18](https://react.dev/)** — Biblioteca para interfaces de usuario
-- **[React Router](https://reactrouter.com/)** — Navegacion SPA
-- **[Axios](https://axios-http.com/)** — Cliente HTTP
-- **[React Query](https://tanstack.com/query)** — Manejo de estado del servidor
-- **[React Hook Form](https://react-hook-form.com/)** — Manejo de formularios
-- **[Tailwind CSS](https://tailwindcss.com/)** — Framework de estilos utilitario
+- Painenahuel Luna Ignacio
+- Zanconi Gianluca
+- Marigioli Gino
+- 
+## Estado del proyecto
 
-### Infraestructura
-- **[Docker](https://docs.docker.com/)** — Contenedores
-- **[Docker Compose](https://docs.docker.com/compose/)** — Orquestacion multi-contenedor
-- **[PostgreSQL 15](https://www.postgresql.org/docs/15/)** — Base de datos relacional
-- **[Redis 7](https://redis.io/docs/)** — Cache en memoria
-- **[Caddy 2](https://caddyserver.com/docs/)** — Reverse proxy
-- **[pgAdmin 4](https://www.pgadmin.org/docs/)** — Administracion visual de PostgreSQL
-
+En desarrollo. 
+Taller I, Metodología de Sistemas II, 2026.
 ---
 ---
