@@ -103,7 +103,8 @@ El servidor queda disponible en http://localhost:3000.
 - Painenahuel Luna Ignacio
 - Zanconi Gianluca
 - Marigioli Gino
-- 
+- Federico Luengo
+
 ## Estado del proyecto
 
 En desarrollo. 
