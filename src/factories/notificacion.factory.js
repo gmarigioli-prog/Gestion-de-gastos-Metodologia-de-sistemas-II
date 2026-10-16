@@ -5,7 +5,7 @@ function crearNotificacion({ tipo, destinatario, asunto, mensaje }) {
 
   if (
     typeof destinatario !== 'string' ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(destinatario)
+    !test(destinatario)
   ) {
     throw new TypeError('Se requiere una dirección de correo válida')
   }
@@ -23,7 +23,7 @@ function crearNotificacion({ tipo, destinatario, asunto, mensaje }) {
     destinatario: destinatario.trim(),
     asunto: asunto.trim(),
     mensaje: mensaje.trim(),
-    creadaEn: new Date().toISOString()
+    creadaEn: new Date()
   })
 }
 
