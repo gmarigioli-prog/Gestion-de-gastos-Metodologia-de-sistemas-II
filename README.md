@@ -5,9 +5,13 @@ Aplicación web para registrar y gestionar finanzas personales: ingresos, gastos
 ## Tecnologías usadas
 
 - **Node.js v20.x**
+<<<<<<< Updated upstream
 - **Express.js**
 - **PostgreSQL / MySQL (definir cuál usan)**
 - **ORM si corresponde (Sequelize, Prisma, etc.)**
+=======
+- **PostgreSQL / MySQL (definir cuál usamos)**
+>>>>>>> Stashed changes
 - **Librería de autenticación (JWT, bcrypt, Passport, etc.)**
 
 ## Requisitos previos
@@ -21,7 +25,7 @@ Aplicación web para registrar y gestionar finanzas personales: ingresos, gastos
 
 1. Clonar el repositorio:
 
-git clone https://github.com/usuario/nombre-repo.git
+git clone https://github.com/gmarigioli-prog/Gestion-de-gastos-Metodologia-de-sistemas-II.git
 cd nombre-repo
 
 
