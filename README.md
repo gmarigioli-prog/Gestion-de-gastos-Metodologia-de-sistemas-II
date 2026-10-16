@@ -6,9 +6,8 @@ Aplicación web para registrar y gestionar finanzas personales: ingresos, gastos
 
 - **Node.js v20.x**
 - **Express.js**
-- **PostgreSQL / MySQL (definir cuál usan)**
-- **ORM si corresponde (Sequelize, Prisma, etc.)**
-- **PostgreSQL / MySQL (definir cuál usamos)**
+- **PostgreSQL**
+- **Sequelize/Prisma**
 - **Librería de autenticación (JWT, bcrypt, Passport, etc.)**
 
 ## Requisitos previos
