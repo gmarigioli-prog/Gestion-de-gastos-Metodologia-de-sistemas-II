@@ -1,5 +1,4 @@
 const { Router } = require('express')
-<<<<<<< Updated upstream
 const {
   getUsuarioAll,
   getUsuarioById,
@@ -17,6 +16,4 @@ rutas.put('/:id', putUsuarioById)
 rutas.delete('/:id', deleteUsuarioById)
 
 module.exports = rutas
-=======
--
->>>>>>> Stashed changes
+
