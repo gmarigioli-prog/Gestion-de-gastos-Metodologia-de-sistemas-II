@@ -10,10 +10,40 @@
   <body>
     <header class="topbar">
       <a class="brand" href="/">FinanzApp</a>
-      <span class="status">Demo local</span>
+      <span class="status" id="user-label">Demo local</span>
+      <button class="secondary-button" id="logout-button" type="button" hidden>Cerrar sesión</button>
     </header>
 
-    <main class="container">
+    <!-- Inicio de sesion -->
+    <main class="container" id="auth-screen">
+      <article class="panel auth-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Bienvenido</p>
+            <h2 id="auth-title">Iniciar sesión</h2>
+          </div>
+        </div>
+        <form id="auth-form">
+          <label>
+            Usuario
+            <input id="auth-username" type="text" minlength="3" maxlength="30" autocomplete="username" required />
+          </label>
+          <label>
+            Contraseña
+            <input id="auth-password" type="password" minlength="4" autocomplete="current-password" required />
+          </label>
+          <p id="auth-error" class="auth-error" role="alert" hidden></p>
+          <button class="primary-button" id="auth-submit" type="submit">Ingresar</button>
+        </form>
+        <p class="auth-switch">
+          <span id="auth-switch-text">¿No tenés cuenta?</span>
+          <button class="link-button" id="auth-switch" type="button">Registrate</button>
+        </p>
+      </article>
+    </main>
+
+    <!-- App que se hace visible despues de que iniciamos sesion -->
+    <main class="container" id="app" hidden>
       <section class="hero">
         <div>
           <p class="eyebrow">Gestión personal</p>
@@ -94,4 +124,3 @@
 
     <script type="module" src="/app.js"></script>
   </body>
-</html>
