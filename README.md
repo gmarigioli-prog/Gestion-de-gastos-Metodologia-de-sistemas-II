@@ -2,7 +2,7 @@
 
 Aplicación web para registrar y visualizar movimientos financieros personales. Permite crear una cuenta local, iniciar sesión y llevar un control separado de **ingresos, gastos y ahorros** desde el navegador.
 
-El proyecto se desarrolla como parte del Taller I de la materia **Metodología de Sistemas II** durante el año 2026.
+El proyecto se desarrolla como parte de la materia **Metodología de Sistemas II** de la Tecnicatura Universitaria en Programación de la UTN durante el año 2026.
 
 ## Funcionalidades
 
@@ -142,11 +142,10 @@ Las pruebas cubren el modelo de usuario, el controlador de usuarios, las rutas y
 
 El proyecto cuenta con una interfaz funcional y una base modular en el servidor. Entre las mejoras previstas se encuentran:
 
-- Integrar usuarios y movimientos con una base de datos.
+- Integrar usuarios y movimientos con una base de datos y un backend completo.
 - Proteger rutas y autenticar usuarios con JWT.
 - Cifrar contraseñas con bcrypt.
 - Completar las operaciones de la API de usuarios.
-- Implementar el patrón Memento para deshacer movimientos.
 - Completar el envío de notificaciones por correo mediante la factory existente.
 
 ## Integrantes
