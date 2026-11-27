@@ -55,7 +55,7 @@ describe('usuario.controller', () => {
       expect(res.body).toEqual(usuarios);
     });
 
-    it('returns an empty array when the file contains no users', async () => {
+    it('devuelve array vacío si no hay usuarios', async () => {
       mocks.readFile.mockResolvedValue('[]');
       const res = createResponse();
 
@@ -65,7 +65,7 @@ describe('usuario.controller', () => {
       expect(res.body).toEqual([]);
     });
 
-    it('returns 500 when users cannot be read', async () => {
+    it('devuelve error 500 cuando los datos no se pueden leer', async () => {
       mocks.readFile.mockRejectedValue(new Error('read failure'));
       const res = createResponse();
 
@@ -75,7 +75,7 @@ describe('usuario.controller', () => {
       expect(res.body.error).toBe('No se pudieron obtener los datos de los usuarios');
     });
 
-    it('returns 500 when the stored JSON is invalid', async () => {
+    it('devuelve error 500 cuando el JSON almacenado es inválido', async () => {
       mocks.readFile.mockResolvedValue('{invalid');
       const res = createResponse();
 
@@ -86,7 +86,7 @@ describe('usuario.controller', () => {
   });
 
   describe('getUsuarioById', () => {
-    it('returns the requested user', async () => {
+    it('devuelve el usuario solicitado', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       const res = createResponse();
 
@@ -96,7 +96,7 @@ describe('usuario.controller', () => {
       expect(res.body).toEqual(usuarios[1]);
     });
 
-    it('returns 404 for a missing or non-numeric id', async () => {
+    it('devuelve 404 para un id faltante o no numérico', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       const res = createResponse();
 
@@ -106,7 +106,7 @@ describe('usuario.controller', () => {
       expect(res.body.msg).toContain('99');
     });
 
-    it('returns 500 when user details cannot be read', async () => {
+    it('devuelve error 500 cuando no se pueden leer los detalles del usuario', async () => {
       mocks.readFile.mockRejectedValue(new Error('read failure'));
       const res = createResponse();
 
@@ -118,7 +118,7 @@ describe('usuario.controller', () => {
   });
 
   describe('postNewUsuario', () => {
-    it('creates and persists a new user', async () => {
+    it('crea un nuevo usuario', async () => {
       vi.useFakeTimers();
       vi.setSystemTime(new Date('2026-11-27T12:00:00.000Z'));
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
@@ -147,7 +147,7 @@ describe('usuario.controller', () => {
       vi.useRealTimers();
     });
 
-    it('uses id 1 when the stored list is empty', async () => {
+    it('usa id 1 cuando la lista almacenada está vacía', async () => {
       mocks.readFile.mockResolvedValue('[]');
       mocks.writeFile.mockResolvedValue();
       const res = createResponse();
@@ -160,7 +160,7 @@ describe('usuario.controller', () => {
       expect(res.body.usuario.id).toBe(1);
     });
 
-    it('returns 400 when required fields are missing', async () => {
+    it('devuelve 400 cuando faltan campos requeridos', async () => {
       const res = createResponse();
 
       await postNewUsuario({ body: { nombre: '', apellido: '', email: '' } }, res);
@@ -170,7 +170,7 @@ describe('usuario.controller', () => {
       expect(mocks.readFile).not.toHaveBeenCalled();
     });
 
-    it('returns 500 when a new user cannot be persisted', async () => {
+    it('devuelve error 500 cuando un nuevo usuario no puede ser persistido', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       mocks.writeFile.mockRejectedValue(new Error('write failure'));
       const res = createResponse();
@@ -185,7 +185,7 @@ describe('usuario.controller', () => {
   });
 
   describe('putUsuarioById', () => {
-    it('updates and persists the supplied fields', async () => {
+    it('actualiza al usuario solicitado', async () => {
       vi.useFakeTimers();
       vi.setSystemTime(new Date('2026-11-27T12:00:00.000Z'));
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
@@ -208,7 +208,7 @@ describe('usuario.controller', () => {
       vi.useRealTimers();
     });
 
-    it('does not update fields omitted from the request', async () => {
+    it('no actualiza campos omitidos de la solicitud', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       mocks.writeFile.mockResolvedValue();
       const res = createResponse();
@@ -223,7 +223,7 @@ describe('usuario.controller', () => {
       expect(res.body.usuario.email).toBe('nueva@example.com');
     });
 
-    it('returns 404 when the user to update does not exist', async () => {
+    it('devuelve 404 cuando el usuario a actualizar no existe', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       const res = createResponse();
 
@@ -236,7 +236,7 @@ describe('usuario.controller', () => {
       expect(mocks.writeFile).not.toHaveBeenCalled();
     });
 
-    it('returns 400 when no valid update fields are supplied', async () => {
+    it('devuelve 400 cuando no se proporcionan campos de actualización válidos', async () => {
       const res = createResponse();
 
       await putUsuarioById({
@@ -250,7 +250,7 @@ describe('usuario.controller', () => {
   });
 
   describe('deleteUsuarioById', () => {
-    it('removes and persists the requested user', async () => {
+    it('elimina y persiste al usuario solicitado', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       mocks.writeFile.mockResolvedValue();
       const res = createResponse();
@@ -266,7 +266,7 @@ describe('usuario.controller', () => {
       );
     });
 
-    it('returns 404 when the user to delete does not exist', async () => {
+    it('devuelve 404 cuando el usuario a eliminar no existe', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       const res = createResponse();
 
@@ -276,7 +276,7 @@ describe('usuario.controller', () => {
       expect(mocks.writeFile).not.toHaveBeenCalled();
     });
 
-    it('returns 500 when a deletion cannot be persisted', async () => {
+    it('devuelve error 500 cuando una eliminación no puede ser persistida', async () => {
       mocks.readFile.mockResolvedValue(JSON.stringify(usuarios));
       mocks.writeFile.mockRejectedValue(new Error('write failure'));
       const res = createResponse();
