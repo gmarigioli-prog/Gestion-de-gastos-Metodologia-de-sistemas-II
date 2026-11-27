@@ -7,8 +7,9 @@
     "npm": ">=10"
   },
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "vitest run",
     "migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate"
@@ -21,6 +22,8 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "prisma": "^6.0.0"
+    "jsdom": "^25.0.1",
+    "prisma": "^6.0.0",
+    "vitest": "^2.0.5"
   }
 }

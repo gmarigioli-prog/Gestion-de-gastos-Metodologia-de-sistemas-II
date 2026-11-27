@@ -1,3 +1,6 @@
+// Controlador de usuarios. Maneja las operaciones CRUD para los usuarios.
+// Actualmente, los datos de los usuarios se almacenan en un archivo JSON local. En el futuro, se puede migrar a una base de datos.
+
 const fs = require('fs').promises
 
 const getUsuarioAll = async (req, res) => {
@@ -43,12 +46,24 @@ const getUsuarioById = async (req, res) => {
 const postNewUsuario = async (req, res) => {
   try {
     const { nombre, apellido, email } = req.body
+    if (
+      typeof nombre !== 'string' ||
+      nombre.trim() === '' ||
+      typeof apellido !== 'string' ||
+      apellido.trim() === '' ||
+      typeof email !== 'string' ||
+      email.trim() === ''
+    ) {
+      return res.status(400).json({
+        error: 'Nombre, apellido y email son obligatorios'
+      })
+    }
 
     const data = await fs.readFile('./data/usuarios.json', 'utf8')
     const usuarios = JSON.parse(data)
 
     const ids = usuarios.map((usuario) => usuario.id)
-    const nuevoId = Math.max(...ids) + 1
+    const nuevoId = (ids.length > 0 ? Math.max(...ids) : 0) + 1
 
     const nuevoUsuario = {
       id: nuevoId,
@@ -85,6 +100,16 @@ const putUsuarioById = async (req, res) => {
   try {
     const { id } = req.params
     const { nombre, apellido, email, isActive } = req.body
+    if (
+      typeof nombre === 'undefined' &&
+      typeof apellido === 'undefined' &&
+      typeof email === 'undefined' &&
+      typeof isActive === 'undefined'
+    ) {
+      return res.status(400).json({
+        error: 'Se requiere al menos un campo para actualizar'
+      })
+    }
 
     const data = await fs.readFile('./data/usuarios.json', 'utf8')
     const usuarios = JSON.parse(data)
