@@ -8,6 +8,7 @@ const authForm = document.querySelector("#auth-form");
 const authError = document.querySelector("#auth-error");
 const userLabel = document.querySelector("#user-label");
 const logoutButton = document.querySelector("#logout-button");
+const undoButton = document.querySelector("#undo-button");
 const form = document.querySelector("#movement-form");
 const list = document.querySelector("#movement-list");
 const emptyState = document.querySelector("#empty-state");
@@ -15,6 +16,7 @@ const dateInput = document.querySelector("#movement-date");
 
 let currentUser = null;
 let movements = [];
+let movementMementos = [];
 let isRegisterMode = false;
 
 /*  Sesion */
@@ -54,6 +56,7 @@ logoutButton.addEventListener("click", () => {
   localStorage.removeItem(SESSION_KEY);
   currentUser = null;
   movements = [];
+  movementMementos = [];
   showAuth();
 });
 
@@ -83,6 +86,7 @@ function showAuthError(message) {
 function startApp(username) {
   currentUser = username;
   movements = loadMovements();
+  movementMementos = [];
   authScreen.hidden = true;
   appScreen.hidden = false;
   logoutButton.hidden = false;
@@ -112,6 +116,7 @@ async function hashPassword(username, password) {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  movementMementos.push(createMovementMemento());
   const movement = {
     id: crypto.randomUUID(),
     type: document.querySelector("#movement-type").value,
@@ -127,6 +132,15 @@ form.addEventListener("submit", (event) => {
   render();
 });
 
+undoButton.addEventListener("click", () => {
+  const memento = movementMementos.pop();
+  if (!memento) return;
+
+  movements = restoreMovementMemento(memento);
+  saveMovements();
+  render();
+});
+
 function loadMovements() {
   try {
     return JSON.parse(localStorage.getItem(movementsKey(currentUser))) || [];
@@ -137,6 +151,14 @@ function loadMovements() {
 
 function saveMovements() {
   localStorage.setItem(movementsKey(currentUser), JSON.stringify(movements));
+}
+
+function createMovementMemento() {
+  return movements.map((movement) => ({ ...movement }));
+}
+
+function restoreMovementMemento(memento) {
+  return memento.map((movement) => ({ ...movement }));
 }
 
 /* Render */
@@ -153,6 +175,7 @@ function render() {
   document.querySelector("#balance").textContent = formatMoney(totals.ingreso - totals.gasto - totals.ahorro);
   emptyState.hidden = movements.length > 0;
   list.innerHTML = movements.map(renderMovement).join("");
+  undoButton.disabled = movementMementos.length === 0;
 }
 
 function renderMovement(movement) {
