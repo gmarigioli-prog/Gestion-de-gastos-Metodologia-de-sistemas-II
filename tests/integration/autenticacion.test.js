@@ -10,7 +10,7 @@ const USERS_KEY = 'finanzapp-usuarios';
 const SESSION_KEY = 'finanzapp-sesion';
 const page = readFileSync(resolve(process.cwd(), 'public/index.html'), 'utf8');
 
-async function loadApp() {
+async function cargarApp() {
   vi.resetModules();
   document.open();
   document.write(page);
@@ -28,7 +28,7 @@ async function formaAutenticacion(username, password, register = false) {
   );
 }
 
-async function hashPassword(username, password) {
+async function hashContrasena(username, password) {
   const data = new TextEncoder().encode(`${username}:${password}`);
   const buffer = await webcrypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(buffer))
@@ -40,7 +40,7 @@ beforeEach(async () => {
   localStorage.clear();
   vi.stubGlobal('crypto', webcrypto);
   vi.stubGlobal('TextEncoder', TextEncoder);
-  await loadApp();
+  await cargarApp();
 });
 
 afterEach(() => {
@@ -84,7 +84,7 @@ describe('Autenticación de usuarios', () => {
     const password = 'correct-password';
     localStorage.setItem(
       USERS_KEY,
-      JSON.stringify({ [username]: { hash: await hashPassword(username, password) } })
+      JSON.stringify({ [username]: { hash: await hashContrasena(username, password) } })
     );
 
     await formaAutenticacion(username, 'wrong-password');
@@ -106,7 +106,7 @@ describe('Autenticación de usuarios', () => {
   it('restaura una sesión guardada y la limpia al cerrar sesión', async () => {
     localStorage.setItem(USERS_KEY, JSON.stringify({ ana: { hash: 'saved-hash' } }));
     localStorage.setItem(SESSION_KEY, 'ana');
-    await loadApp();
+    await cargarApp();
 
     expect(document.querySelector('#auth-screen').hidden).toBe(true);
     expect(document.querySelector('#app').hidden).toBe(false);

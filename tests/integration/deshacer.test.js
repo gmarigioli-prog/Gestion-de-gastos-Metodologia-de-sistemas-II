@@ -9,7 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 const SESSION_KEY = 'finanzapp-sesion';
 const page = readFileSync(resolve(process.cwd(), 'public/index.html'), 'utf8');
 
-async function loadApp() {
+async function cargarApp() {
   vi.resetModules();
   document.open();
   document.write(page);
@@ -17,7 +17,7 @@ async function loadApp() {
   await import('../../public/app.js');
 }
 
-async function registerAndSignIn(username) {
+async function registroInicial(username) {
   document.querySelector('#auth-switch').click();
   document.querySelector('#auth-username').value = username;
   document.querySelector('#auth-password').value = 'example-password';
@@ -30,7 +30,7 @@ async function registerAndSignIn(username) {
   });
 }
 
-function addMovement({ type, description, amount }) {
+function anadirAccion({ type, description, amount }) {
   document.querySelector('#movement-type').value = type;
   document.querySelector('#movement-description').value = description;
   document.querySelector('#movement-amount').value = String(amount);
@@ -44,7 +44,7 @@ beforeEach(async () => {
   localStorage.clear();
   vi.stubGlobal('crypto', webcrypto);
   vi.stubGlobal('TextEncoder', TextEncoder);
-  await loadApp();
+  await cargarApp();
 });
 
 afterEach(() => {
@@ -54,10 +54,10 @@ afterEach(() => {
 
 describe('Deshacer movimientos', () => {
   it('restaura los estados anteriores y persiste cada deshacer', async () => {
-    await registerAndSignIn('ana');
+    await registroInicial('ana');
 
-    addMovement({ type: 'gasto', description: 'Comida', amount: 25 });
-    addMovement({ type: 'ingreso', description: 'Sueldo', amount: 1000 });
+    anadirAccion({ type: 'gasto', description: 'Comida', amount: 25 });
+    anadirAccion({ type: 'ingreso', description: 'Sueldo', amount: 1000 });
 
     const storedMovementsKey = 'finanzapp-movimientos:ana';
     const savedMovements = JSON.parse(localStorage.getItem(storedMovementsKey));
