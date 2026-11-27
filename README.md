@@ -1,109 +1,161 @@
-# Proyecto de gestor personal de financias
+# FinanzApp - Gestor personal de gastos
 
-Aplicación web para registrar y gestionar finanzas personales: ingresos, gastos y ahorros mensuales. Permite crear una cuenta para guardar la información de forma privada.
+Aplicación web para registrar y visualizar movimientos financieros personales. Permite crear una cuenta local, iniciar sesión y llevar un control separado de **ingresos, gastos y ahorros** desde el navegador.
 
-## Tecnologías usadas
+El proyecto se desarrolla como parte del Taller I de la materia **Metodología de Sistemas II** durante el año 2026.
 
-- **Node.js v20.x**
-- **Express.js**
-- **PostgreSQL**
-- **Sequelize/Prisma**
-- **Librería de autenticación (JWT, bcrypt, Passport, etc.)**
+## Funcionalidades
 
-## Requisitos previos
+- Registro e inicio de sesión de usuarios en el navegador.
+- Sesión persistida con `localStorage`.
+- Contraseña representada mediante un hash SHA-256 generado en el cliente.
+- Registro de ingresos, gastos y ahorros.
+- Cálculo automático de:
+  - Balance disponible.
+  - Total de ingresos.
+  - Total de gastos.
+  - Total de ahorros.
+- Separación de movimientos por usuario.
+- Listado de actividad ordenado por la fecha de registro.
+- Formato de moneda y fechas para Argentina.
 
-- Node.js >= 20.x 
-- npm >= 10.x
-- PostgreSQL >= 15 o MySQL >= 8 corriendo localmente (o Docker si lo usan)
+> Los datos creados desde la interfaz se almacenan exclusivamente en el `localStorage` del navegador. No existe actualmente una conexión activa con una base de datos ni una API del servidor para los movimientos financieros.
+
+## Tecnologías
+
+- Node.js
+- Express
+- JavaScript
+- HTML y CSS
+- Vitest
+- Prisma y JWT como dependencias preparadas para una futura integración
+
+## Requisitos
+
+- Node.js 20 o superior
+- npm 10 o superior
 - Git
 
 ## Instalación
 
 1. Clonar el repositorio:
 
+```bash
 git clone https://github.com/gmarigioli-prog/Gestion-de-gastos-Metodologia-de-sistemas-II.git
-cd nombre-repo
-
+cd Gestion-de-gastos-Metodologia-de-sistemas-II
+```
 
 2. Instalar las dependencias:
 
+```bash
 npm install
+```
 
+## Ejecución
 
-3. Copiar el archivo de variables de entorno de ejemplo:
+Iniciar el servidor con recarga automática:
 
-cp .env.example .env
-
-
-4. Completar el archivo .env con los valores correspondientes (ver sección de Configuración).
-
-5. Crear la base de datos y correr las migraciones, si usan alguna:
-
-npm run migrate
-
-
-## Configuración
-
-Variables de entorno necesarias (ver .env.example):
-
-| Variable      | Descripción                        | Ejemplo                    |
-|---------------|-------------------------------------|-----------------------------|
-| DB_HOST       | Host de la base de datos            | localhost                    |
-| DB_PORT       | Puerto de la base de datos          | 5432                         |
-| DB_NAME       | Nombre de la base de datos          | finanzapp_db                 |
-| DB_USER       | Usuario de la base de datos         | postgres                     |
-| DB_PASSWORD   | Contraseña de la base de datos      | ****                     |
-| JWT_SECRET    | Clave secreta para tokens de sesión | una_clave_larga_y_segura      |
-| PORT          | Puerto donde corre el servidor      | 3000                         |
-
-## Cómo correr el proyecto
-
-Modo desarrollo:
-
+```bash
 npm run dev
+```
 
+Iniciar el servidor normalmente:
 
-Modo producción:
-
+```bash
 npm start
+```
 
+Abrir `http://localhost:3000` en el navegador.
 
-El servidor queda disponible en http://localhost:3000.
+La aplicación expone además el endpoint de estado:
 
-## Estructura del proyecto
+```text
+GET /health
+```
 
+Respuesta:
 
+```json
+{
+  "status": "ok"
+}
+```
+
+El puerto puede configurarse mediante la variable de entorno `PORT`:
+
+```bash
+PORT=4000 npm start
+```
+
+En Windows PowerShell:
+
+```powershell
+$env:PORT=4000
+npm start
+```
+
+## Uso
+
+1. Abrir la aplicación.
+2. Registrar una cuenta o iniciar sesión.
+3. Completar el formulario con tipo de movimiento, descripción, monto y fecha.
+4. Guardar el registro.
+5. Consultar el balance y los totales calculados en la pantalla principal.
+6. Cerrar sesión desde el encabezado cuando corresponda.
+
+Los usuarios y movimientos quedan vinculados al perfil activo en el navegador. Borrar los datos del sitio elimina esta información local.
+
+## Pruebas
+
+Ejecutar toda la suite:
+
+```bash
+npm test
+```
+
+Las pruebas cubren el modelo de usuario, el controlador de usuarios, las rutas y la factory de notificaciones.
+
+## Arquitectura del proyecto
+
+```text
+.
+├── public/
+│   ├── app.js        # Interacción del navegador y persistencia local
+│   ├── index.html    # Interfaz de autenticación y movimientos
+│   └── styles.css    # Estilos de la aplicación
 ├── src/
-│   ├── controllers/      # Lógica de ingresos, gastos, ahorros, auth
-│   ├── models/            # Modelos de la base de datos
-│   ├── routes/            # Endpoints de la API
-│   ├── middlewares/        # Autenticación, validaciones
-│   └── index.js
-├── .env.example
-├── .gitignore
+│   ├── controllers/  # Operaciones CRUD sobre usuarios
+│   ├── factories/    # Factory de notificaciones
+│   ├── models/       # Modelo de usuario
+│   ├── routes/       # Rutas CRUD de usuarios
+│   └── index.js      # Servidor Express y archivos estáticos
+├── tests/
+│   ├── integration/  # Pruebas de integración
+│   └── unit/         # Pruebas unitarias
+├── docs/
+│   └── decisiones.md # Patrones y decisiones de diseño
 ├── package.json
 └── README.md
+```
 
+## Estado y próximos pasos
 
-## Funcionalidades principales
+El proyecto cuenta con una interfaz funcional y una base modular en el servidor. Entre las mejoras previstas se encuentran:
 
-- Registro e inicio de sesión de usuarios
-- Registro de ingresos mensuales
-- Registro de gastos mensuales
-- Registro de ahorros
-- Categorías de gastos e ingresos
-- Reportes financieros periódicos
+- Integrar usuarios y movimientos con una base de datos.
+- Proteger rutas y autenticar usuarios con JWT.
+- Cifrar contraseñas con bcrypt.
+- Completar las operaciones de la API de usuarios.
+- Implementar el patrón Memento para deshacer movimientos.
+- Completar el envío de notificaciones por correo mediante la factory existente.
 
-## Integrantes del proyecto
+## Integrantes
 
 - Painenahuel Luna Ignacio
 - Zanconi Gianluca
 - Marigioli Gino
 - Federico Luengo
 
-## Estado del proyecto
+## Documentación adicional
 
-En desarrollo. 
-Taller I, Metodología de Sistemas II, 2026.
----
----
+Las decisiones técnicas y los patrones considerados están documentados en [docs/decisiones.md](docs/decisiones.md).
