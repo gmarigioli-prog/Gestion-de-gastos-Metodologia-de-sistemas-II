@@ -81,13 +81,13 @@ describe('Autenticación de usuarios', () => {
 
   it('acepta credenciales válidas y rechaza una contraseña incorrecta', async () => {
     const username = 'ana';
-    const password = 'correct-password';
+    const password = 'contrasena-correcta';
     localStorage.setItem(
       USERS_KEY,
       JSON.stringify({ [username]: { hash: await hashContrasena(username, password) } })
     );
 
-    await formaAutenticacion(username, 'wrong-password');
+    await formaAutenticacion(username, 'contrasena-incorrecta');
 
     await vi.waitFor(() => {
       expect(document.querySelector('#auth-error').hidden).toBe(false);

@@ -1,5 +1,5 @@
 
-// Pruebas unitarias para el controlador de usuarios. No 
+// Pruebas unitarias para el controlador de usuarios. No se encuentra implementado actualmente en el sistema.
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createRequire } from 'node:module';
