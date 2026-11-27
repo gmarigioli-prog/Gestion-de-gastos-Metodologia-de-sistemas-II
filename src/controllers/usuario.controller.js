@@ -1,3 +1,6 @@
+// Controlador de usuarios. Maneja las operaciones CRUD para los usuarios.
+// Actualmente, los datos de los usuarios se almacenan en un archivo JSON local. En el futuro, se puede migrar a una base de datos.
+
 const fs = require('fs').promises
 
 const getUsuarioAll = async (req, res) => {

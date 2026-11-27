@@ -1,3 +1,6 @@
+
+// Pruebas unitarias para el controlador de usuarios. No 
+
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createRequire } from 'node:module';
 

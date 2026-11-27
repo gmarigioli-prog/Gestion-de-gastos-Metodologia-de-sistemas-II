@@ -1,3 +1,5 @@
+// Modelo de usuario para backend futuro. Actualmente, los datos de los usuarios se almacenan en un archivo JSON local. En el futuro, se puede migrar a una base de datos.
+
 export class Usuario {
   constructor({ id, nombre, correo, contrasena }) {
     this.id = id;

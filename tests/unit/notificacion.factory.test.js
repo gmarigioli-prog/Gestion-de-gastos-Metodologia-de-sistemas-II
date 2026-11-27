@@ -1,3 +1,5 @@
+// Pruebas unitarias para la futura implementación de la fábrica de notificaciones.
+
 import {describe, it, expect} from 'vitest';
 import {crearNotificacion} from '../../src/factories/notificacion.factory.js';
 

@@ -1,3 +1,5 @@
+// Pruebas unitarias para el modelo de usuario a usar a futuro.
+
 import {describe, it, expect, beforeAll, afterAll} from 'vitest';
 import { Usuario } from '../../src/models/usuario.model.js';
 
